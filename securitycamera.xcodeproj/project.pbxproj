@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D67B2671A9540B6004FD4B2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D67B2661A9540B6004FD4B2 /* main.m */; };
+		3D67B2851A956B42004FD4B2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D67B2811A9566F1004FD4B2 /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +24,7 @@
 
 /* Begin PBXFileReference section */
 		3D67B2631A9540B6004FD4B2 /* securitycamera */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = securitycamera; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D67B2661A9540B6004FD4B2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3D67B2811A9566F1004FD4B2 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +57,7 @@
 		3D67B2651A9540B6004FD4B2 /* securitycamera */ = {
 			isa = PBXGroup;
 			children = (
-				3D67B2661A9540B6004FD4B2 /* main.m */,
+				3D67B2811A9566F1004FD4B2 /* main.swift */,
 			);
 			path = securitycamera;
 			sourceTree = "<group>";
@@ -118,7 +118,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D67B2671A9540B6004FD4B2 /* main.m in Sources */,
+				3D67B2851A956B42004FD4B2 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,14 +202,21 @@
 		3D67B26B1A9540B6004FD4B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "securitycamera/securitycamera-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		3D67B26C1A9540B6004FD4B2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "securitycamera/securitycamera-Bridging-Header.h";
 			};
 			name = Release;
 		};
