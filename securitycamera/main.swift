@@ -12,6 +12,41 @@ var imagesnapPath = NSBundle.mainBundle().resourcePath?.stringByAppendingPathCom
 
 print(imagesnapPath)
 
+
+var interval = 2.0
+
+var queue = dispatch_get_global_queue(Int(DISPATCH_QUEUE_PRIORITY_DEFAULT), 0)
+var timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+
+
+var count = 0
+
+var dsTime1 = Int64(interval * Double(NSEC_PER_SEC))
+if (timer != nil) {
+    let popTime = dispatch_time(DISPATCH_TIME_NOW,
+        Int64(interval * Double(NSEC_PER_SEC)))
+    
+    dispatch_source_set_timer(
+        timer,
+        popTime,
+        UInt64(interval * Double(NSEC_PER_SEC)),
+        UInt64(interval * Double(NSEC_PER_SEC) / 10));
+    
+    dispatch_source_set_event_handler(timer) {
+        count++;
+        println("ran timer")
+        if (count > 4) {
+            println("stoping")
+            dispatch_source_cancel(timer);
+        }
+    }
+    dispatch_resume(timer)
+}
+
+
+
+
+
 class AppDelegate: NSObject {
     var imagesnap:NSTask
     override init() {
