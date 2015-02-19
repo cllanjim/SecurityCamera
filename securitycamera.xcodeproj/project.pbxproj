@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3D67B2851A956B42004FD4B2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D67B2811A9566F1004FD4B2 /* main.swift */; };
+		ABB1EC811A95AB6000F54C0D /* ImageCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB1EC801A95AB6000F54C0D /* ImageCapture.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,8 @@
 /* Begin PBXFileReference section */
 		3D67B2631A9540B6004FD4B2 /* securitycamera */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = securitycamera; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D67B2811A9566F1004FD4B2 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		ABB1EC7F1A95A55B00F54C0D /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
+		ABB1EC801A95AB6000F54C0D /* ImageCapture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCapture.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				3D67B2811A9566F1004FD4B2 /* main.swift */,
+				ABB1EC7F1A95A55B00F54C0D /* BridgeHeader.h */,
+				ABB1EC801A95AB6000F54C0D /* ImageCapture.swift */,
 			);
 			path = securitycamera;
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABB1EC811A95AB6000F54C0D /* ImageCapture.swift in Sources */,
 				3D67B2851A956B42004FD4B2 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,15 +8,20 @@
 
 import Foundation
 
+
 var imagesnapPath = NSBundle.mainBundle().resourcePath?.stringByAppendingPathComponent("imagesnap")
 
 print(imagesnapPath)
 
 
-var interval = 2.0
+var interval = 0.02
 
 var queue = dispatch_get_global_queue(Int(DISPATCH_QUEUE_PRIORITY_DEFAULT), 0)
-var timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+
+private let concurrentImageSnapQueue = dispatch_queue_create(
+    "com.marshallbrekka.SecurityCamera.ImageSnap", DISPATCH_QUEUE_CONCURRENT)
+var timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, concurrentImageSnapQueue);
+
 
 
 var count = 0
@@ -33,14 +38,21 @@ if (timer != nil) {
         UInt64(interval * Double(NSEC_PER_SEC) / 10));
     
     dispatch_source_set_event_handler(timer) {
-        count++;
-        println("ran timer")
-        if (count > 4) {
-            println("stoping")
-            dispatch_source_cancel(timer);
-        }
+        var x = count++;
+        println("ran timer " + String(x))
+        sleep(2)
+        println("ran timer post sleep" + String(x))
+        
     }
     dispatch_resume(timer)
+}
+
+sleep(5)
+dispatch_barrier_async(concurrentImageSnapQueue) { // 1
+    println("barier call")
+    dispatch_source_cancel(timer);
+    sleep(2)
+    println("canceled")
 }
 
 
