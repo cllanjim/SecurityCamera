@@ -7,63 +7,59 @@
 //
 
 import Foundation
+import Cocoa
 import AVFoundation
 
 
 
-class ImageCapture {
+class ImageCapture: NSObject {
+    var sampleBuffer: CMSampleBuffer!
+    var session: AVCaptureSession!
+    var connection: AVCaptureConnection!
+    var output: AVCaptureStillImageOutput!
+    
+    override init () {
+        super.init()
+        self.session = nil
+        self.connection = nil
+    }
+    
     func startSession(device:AVCaptureDevice) {
         var session = AVCaptureSession()
         var error:NSError?
         var input = AVCaptureDeviceInput(device: device, error: &error)
+        var output = AVCaptureStillImageOutput()
+        self.output = output
+        
         session.addInput(input)
-        
-        var output = AVCaptureVideoDataOutput()
-        
-    }
-    
-    
-/*
-    
-    
-    // Decompressed video output
-    verbose( "\tCreating QTCaptureDecompressedVideoOutput...");
-    mCaptureDecompressedVideoOutput = [[QTCaptureDecompressedVideoOutput alloc] init];
-    [mCaptureDecompressedVideoOutput setDelegate:self];
-    verbose( "Done.\n" );
-    if (![mCaptureSession addOutput:mCaptureDecompressedVideoOutput error:&error]) {
-    error( "\tCould not create decompressed output.\n");
-    [mCaptureSession release];
-    [mCaptureDeviceInput release];
-    [mCaptureDecompressedVideoOutput release];
-    mCaptureSession = nil;
-    mCaptureDeviceInput = nil;
-    mCaptureDecompressedVideoOutput = nil;
-    return NO;
-    }
-    
-    // Clear old image?
-    verbose("\tEntering synchronized block to clear memory...");
-    @synchronized(self){
-    if( mCurrentImageBuffer != nil ){
-    CVBufferRelease(mCurrentImageBuffer);
-    mCurrentImageBuffer = nil;
-    }   // end if: clear old image
-    }   // end sync: self
-    verbose( "Done.\n");
-    
-    [mCaptureSession startRunning];
-    verbose("Session started.\n");
-    
-    return YES;
-    }   // end startSession
+        session.addOutput(output)
 
-  */
+        var connect:AVCaptureConnection! = nil
+        for connection in output.connections as [AVCaptureConnection] {
+            for port in connection.inputPorts as [AVCaptureInputPort] {
+                if (port.mediaType == AVMediaTypeVideo) {
+                    connect = connection;
+                    break;
+                }
+            }
+            if (connect == nil) {
+                break;
+            }
+            
+        }
+        self.connection = connect;
+        session.startRunning()
+        self.session = session;
+        
+    }
     
-    
-    
-    
-    
+    func captureImage(cb: (NSData) -> Void) {
+        self.output.captureStillImageAsynchronouslyFromConnection(self.connection, {(buffer:CMSampleBuffer!, error:NSError!) in
+            var imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer);
+            cb(imageData)
+        })
+    }
+
     
     class func defaultVideoDevice() -> AVCaptureDevice {
         var device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
@@ -72,5 +68,7 @@ class ImageCapture {
         }
         return device;
     }
+    
+
     
 }

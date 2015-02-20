@@ -22,7 +22,8 @@ private let concurrentImageSnapQueue = dispatch_queue_create(
     "com.marshallbrekka.SecurityCamera.ImageSnap", DISPATCH_QUEUE_CONCURRENT)
 var timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, concurrentImageSnapQueue);
 
-
+var y = ImageCapture()
+y.startSession(ImageCapture.defaultVideoDevice())
 
 var count = 0
 
@@ -39,7 +40,13 @@ if (timer != nil) {
     
     dispatch_source_set_event_handler(timer) {
         var x = count++;
-        println("ran timer " + String(x))
+        y.captureImage({(image: NSData) in
+            println("saving file")
+            image.writeToFile(String("/Users/marshallbrekka/testimage" + String(x) + ".jpg"), atomically: false)
+            return Void()
+        })
+
+        
         sleep(2)
         println("ran timer post sleep" + String(x))
         
@@ -85,9 +92,11 @@ class AppDelegate: NSObject {
 }
 
 
-
 println("Hello, World!")
 var x = AppDelegate()
+
+
+
 
 
 
