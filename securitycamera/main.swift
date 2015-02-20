@@ -59,8 +59,27 @@ dispatch_barrier_async(concurrentImageSnapQueue) { // 1
     println("barier call")
     dispatch_source_cancel(timer);
     sleep(2)
+    y.stopSession()
+    println("canceled")
+   
+}
+
+y.startSession(ImageCapture.defaultVideoDevice())
+y.captureImage({(image: NSData) in
+    println("saving file")
+    image.writeToFile("/Users/marshallbrekka/testimagefinal.jpg", atomically: false)
+    return Void()
+})
+sleep(5)
+dispatch_barrier_async(concurrentImageSnapQueue) { // 1
+    println("barier call")
+    dispatch_source_cancel(timer);
+    
+    sleep(2)
+    y.stopSession()
     println("canceled")
 }
+
 
 
 

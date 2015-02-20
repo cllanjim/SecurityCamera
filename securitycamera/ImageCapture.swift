@@ -59,6 +59,12 @@ class ImageCapture: NSObject {
             cb(imageData)
         })
     }
+    
+    func stopSession() {
+        self.session.stopRunning()
+        self.session = nil
+        self.connection = nil
+    }
 
     
     class func defaultVideoDevice() -> AVCaptureDevice {
