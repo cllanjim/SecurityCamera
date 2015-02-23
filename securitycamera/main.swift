@@ -9,114 +9,29 @@
 import Foundation
 
 
-var imagesnapPath = NSBundle.mainBundle().resourcePath?.stringByAppendingPathComponent("imagesnap")
+var interval = 1.0
+//image.writeToFile(String("/Users/marshallbrekka/testimage" + String(x) + ".jpg"), atomically: false)
 
-print(imagesnapPath)
+var pic = 0
 
-
-var interval = 0.02
-
-var queue = dispatch_get_global_queue(Int(DISPATCH_QUEUE_PRIORITY_DEFAULT), 0)
-
-private let concurrentImageSnapQueue = dispatch_queue_create(
-    "com.marshallbrekka.SecurityCamera.ImageSnap", DISPATCH_QUEUE_CONCURRENT)
-var timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, concurrentImageSnapQueue);
-
-var y = ImageCapture()
-y.startSession(ImageCapture.defaultVideoDevice())
-
-var count = 0
-
-var dsTime1 = Int64(interval * Double(NSEC_PER_SEC))
-if (timer != nil) {
-    let popTime = dispatch_time(DISPATCH_TIME_NOW,
-        Int64(interval * Double(NSEC_PER_SEC)))
-    
-    dispatch_source_set_timer(
-        timer,
-        popTime,
-        UInt64(interval * Double(NSEC_PER_SEC)),
-        UInt64(interval * Double(NSEC_PER_SEC) / 10));
-    
-    dispatch_source_set_event_handler(timer) {
-        var x = count++;
-        y.captureImage({(image: NSData) in
-            println("saving file")
-            image.writeToFile(String("/Users/marshallbrekka/testimage" + String(x) + ".jpg"), atomically: false)
-            return Void()
-        })
-
-        
-        sleep(2)
-        println("ran timer post sleep" + String(x))
-        
-    }
-    dispatch_resume(timer)
+func saveImage(image:NSData) {
+    pic++;
+    image.writeToFile(String("/Users/Marshall/pictures_" + String(pic) + ".jpg"), atomically: false)
+    println("got image to save")
 }
 
-sleep(5)
-dispatch_barrier_async(concurrentImageSnapQueue) { // 1
-    println("barier call")
-    dispatch_source_cancel(timer);
-    sleep(2)
-    y.stopSession()
-    println("canceled")
-   
+var captureQueue = ImageCaptureQueue(interval:interval, saveImage);
+
+func start() {
+    captureQueue.startCapture()
 }
 
-y.startSession(ImageCapture.defaultVideoDevice())
-y.captureImage({(image: NSData) in
-    println("saving file")
-    image.writeToFile("/Users/marshallbrekka/testimagefinal.jpg", atomically: false)
-    return Void()
-})
-sleep(5)
-dispatch_barrier_async(concurrentImageSnapQueue) { // 1
-    println("barier call")
-    dispatch_source_cancel(timer);
-    
-    sleep(2)
-    y.stopSession()
-    println("canceled")
+func stop() {
+    captureQueue.stopCapture()
 }
 
 
-
-
-
-
-class AppDelegate: NSObject {
-    var imagesnap:NSTask
-    override init() {
-        self.imagesnap = NSTask()
-        self.imagesnap.launchPath = "/usr/local/bin/imagesnap"
-        self.imagesnap.currentDirectoryPath = "/Users/marshallbrekka/tmp/"
-        self.imagesnap.arguments = ["-t", "5"];
-
-        super.init()
-        var defaultCenter = NSDistributedNotificationCenter.defaultCenter()
-        defaultCenter.addObserver(self, selector: "_screenLocked:", name: "com.apple.screenIsLocked", object: nil)
-        defaultCenter.addObserver(self, selector: "_screenUnlocked:", name: "com.apple.screenIsUnlocked", object: nil)
-    }
-    
-    func _screenLocked(notification: NSNotification) {
-        println("screen locked")
-        self.imagesnap.launch()
-    }
-    
-    func _screenUnlocked(notification: NSNotification) {
-        println("screen unlocked")
-        self.imagesnap.terminate()
-    }
-}
-
-
-println("Hello, World!")
-var x = AppDelegate()
-
-
-
-
+var x = SystemEvents(start, stop)
 
 
 

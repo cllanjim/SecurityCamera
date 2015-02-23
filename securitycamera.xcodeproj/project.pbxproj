@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3D67B2851A956B42004FD4B2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D67B2811A9566F1004FD4B2 /* main.swift */; };
 		ABB1EC811A95AB6000F54C0D /* ImageCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB1EC801A95AB6000F54C0D /* ImageCapture.swift */; };
+		ABB1EC831A99436500F54C0D /* ImageCaptureQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB1EC821A99436500F54C0D /* ImageCaptureQueue.swift */; };
+		ABB1EC851A994C3600F54C0D /* SystemEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB1EC841A994C3600F54C0D /* SystemEvents.swift */; };
+		ABB1EC871A99938900F54C0D /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB1EC861A99938900F54C0D /* Movie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +31,9 @@
 		3D67B2811A9566F1004FD4B2 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		ABB1EC7F1A95A55B00F54C0D /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
 		ABB1EC801A95AB6000F54C0D /* ImageCapture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCapture.swift; sourceTree = "<group>"; };
+		ABB1EC821A99436500F54C0D /* ImageCaptureQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCaptureQueue.swift; sourceTree = "<group>"; };
+		ABB1EC841A994C3600F54C0D /* SystemEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemEvents.swift; sourceTree = "<group>"; };
+		ABB1EC861A99938900F54C0D /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +69,9 @@
 				3D67B2811A9566F1004FD4B2 /* main.swift */,
 				ABB1EC7F1A95A55B00F54C0D /* BridgeHeader.h */,
 				ABB1EC801A95AB6000F54C0D /* ImageCapture.swift */,
+				ABB1EC821A99436500F54C0D /* ImageCaptureQueue.swift */,
+				ABB1EC841A994C3600F54C0D /* SystemEvents.swift */,
+				ABB1EC861A99938900F54C0D /* Movie.swift */,
 			);
 			path = securitycamera;
 			sourceTree = "<group>";
@@ -124,7 +133,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABB1EC811A95AB6000F54C0D /* ImageCapture.swift in Sources */,
+				ABB1EC831A99436500F54C0D /* ImageCaptureQueue.swift in Sources */,
 				3D67B2851A956B42004FD4B2 /* main.swift in Sources */,
+				ABB1EC851A994C3600F54C0D /* SystemEvents.swift in Sources */,
+				ABB1EC871A99938900F54C0D /* Movie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
