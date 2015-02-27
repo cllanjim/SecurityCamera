@@ -38,6 +38,7 @@ class Movie {
     
     func addImage(data:NSData) {
         var image = NSImage(data:data)
+        var buffr = CVPixelBufferRef
         var buffer = CVPixelBufferRef ([self pixelBufferFromImage:image withImageSize:self.videoSize];
         for (int i = 1; i <= 30; i++) {
             [ImageToVideoManager appendToAdapter:adaptor pixelBuffer:buffer atTime:time];
@@ -73,7 +74,13 @@ class Movie {
             kCVPixelBufferCGImageCompatibilityKey as String: true,
             kCVPixelBufferCGBitmapContextCompatibilityKey as String: true
         ]
-        CVPixelBufferCreate(kCFAllocatorDefault, Int(width), Int(height), kCVPixelFormatType_32RGBA, d, buffer);
+        CVPixelBufferCreate(
+            kCFAllocatorDefault,
+            UInt(width),
+            UInt(height),
+            k32ARGBPixelFormat,
+            d,
+            buffer);
 
         
     }
