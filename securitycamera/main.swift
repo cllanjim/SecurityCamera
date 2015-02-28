@@ -12,11 +12,18 @@ import Foundation
 var interval = 1.0
 //image.writeToFile(String("/Users/marshallbrekka/testimage" + String(x) + ".jpg"), atomically: false)
 
-var pic = 0
+var movieCount = 0;
+
+var movie:Movie! = nil
 
 func saveImage(image:NSData) {
-    pic++;
-    image.writeToFile(String("/Users/Marshall/pictures_" + String(pic) + ".jpg"), atomically: false)
+    if (movie == nil) {
+        var img = NSImage(data: image)
+        movie = Movie(filePath:NSURL(fileURLWithPath:"/Users/marshallbrekka/testmovie ")!, size: img!.size)
+    }
+    movie.addImage(image)
+
+    //image.writeToFile(String("/Users/Marshall/pictures_" + String(pic) + ".jpg"), atomically: false)
     println("got image to save")
 }
 
@@ -27,11 +34,15 @@ func start() {
 }
 
 func stop() {
+    movie.finish()
     captureQueue.stopCapture()
 }
 
 
-var x = SystemEvents(start, stop)
+//var x = SystemEvents(start, stop)
+start()
+sleep(20)
+stop()
 
 
 

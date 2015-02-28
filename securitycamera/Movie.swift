@@ -10,25 +10,34 @@ import Foundation
 import Cocoa
 import AVFoundation
 
+// source http://stackoverflow.com/questions/5640657/avfoundation-assetwriter-generate-movie-with-images-and-audio
+
 class Movie {
     var movie:AVAssetWriter
     var writer:AVAssetWriterInput
     var adapter:AVAssetWriterInputPixelBufferAdaptor
     var time:CMTime
     
-    init(filePath:NSURL) {
+    init(filePath:NSURL, size:NSSize) {
         var error = NSErrorPointer()
         self.movie = AVAssetWriter(
             URL: filePath,
-            fileType: AVFileTypeMPEG4,
+            fileType: AVFileTypeQuickTimeMovie,
             error: error)
+        
+        var videoSettings = [
+            AVVideoCodecKey as String: AVVideoCodecH264,
+            AVVideoWidthKey as String: NSNumber(integer: Int(size.width)),
+            AVVideoHeightKey as String: NSNumber(integer: Int(size.height))
+        ]
+        
         self.writer = AVAssetWriterInput(
             mediaType: AVMediaTypeVideo,
-            outputSettings: nil)
+            outputSettings: videoSettings)
         self.adapter = AVAssetWriterInputPixelBufferAdaptor(
             assetWriterInput: self.writer,
             sourcePixelBufferAttributes: nil)
-        self.writer.expectsMediaDataInRealTime = false;
+        self.writer.expectsMediaDataInRealTime = true;
         
         self.movie.addInput(self.writer)
         self.movie.startWriting()
@@ -38,14 +47,10 @@ class Movie {
     
     func addImage(data:NSData) {
         var image = NSImage(data:data)
-        var buffr = CVPixelBufferRef
-        var buffer = CVPixelBufferRef ([self pixelBufferFromImage:image withImageSize:self.videoSize];
-        for (int i = 1; i <= 30; i++) {
-            [ImageToVideoManager appendToAdapter:adaptor pixelBuffer:buffer atTime:time];
-            time = CMTimeAdd(time, CMTimeMake(1, 30)); // Add another "frame"
-        }
-        CVPixelBufferRelease(buffer);
-        
+        var buffer = ImageUtil.pixelBufferFromNSImage(image)
+        self.adapter.appendPixelBuffer(buffer.takeUnretainedValue(), withPresentationTime:self.time)
+        self.time = CMTimeAdd(self.time, CMTimeMake(1, 30)); // Add another "frame"
+        buffer.release();
     }
     
     func finish() {
@@ -55,7 +60,7 @@ class Movie {
     }
     
     
-    
+    /*
     
     
     
@@ -63,7 +68,7 @@ class Movie {
     
     class func imageDataToCVPixelBuffer(data:NSData) {
         var image = NSImage(data: data);
-        var buffer:CVPixelBufferRef;
+        var buffer = UnsafeMutablePointer<Unmanaged<CVPixelBuffer>?>()
         var width = image!.size.width
         var height = image!.size.height
         var bitsPerComponent = 8 // *not* CGImageGetBitsPerComponent(image)
@@ -78,9 +83,12 @@ class Movie {
             kCFAllocatorDefault,
             UInt(width),
             UInt(height),
-            k32ARGBPixelFormat,
+            OSType(k32ARGBPixelFormat),
             d,
             buffer);
+        
+        
+        CVPixelBufferLockBaseAddress(&buffer, CVOptionFlags(kCVPixelBufferLock_ReadOnly));
 
         
     }
@@ -129,19 +137,25 @@ class Movie {
         var image = NSImage(data: data)
         var colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB)
         var pixelBufferProperties = [
-            kCVPixelBufferCGImageCompatibilityKey as String: true,
-            kCVPixelBufferCGBitmapContextCompatibilityKey as String: true
+            kCVPixelBufferCGImageCompatibilityKey as String: NSNumber(bool: true),
+            kCVPixelBufferCGBitmapContextCompatibilityKey as String: NSNumber(bool: true)
         ]
-        var pixelBuffer:CVPixelBufferRef;
+        var pixelBuffer: Unmanaged<CVPixelBufferRef>? = nil
+        
+
         
         CVPixelBufferCreate(
             kCFAllocatorDefault,
-            Int(image!.size.width),
-            Int(image!.size.height),
-            kCVPixelFormatType_32RGBA,
+            UInt(image!.size.width),
+            UInt(image!.size.height),
+            OSType(kCVPixelFormatType_32RGBA),
             pixelBufferProperties,
-            pixelBuffer);
-        CVPixelBufferLockBaseAddress(pixelBuffer, 0);
+            &pixelBuffer);
+        
+        var pixelBuf:CVPixelBufferRef = (pixelBuffer!).takeUnretainedValue()
+        
+        CVPixelBufferLockBaseAddress(pixelBuffer?.takeRetainedValue(), CVOptionFlags(kCVPixelBufferLock_ReadOnly))
+       
         var baseAddress = CVPixelBufferGetBaseAddress(pixelBuffer);
         var bytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer);
         var context = CGBitmapContextCreate(
@@ -177,7 +191,7 @@ class Movie {
     CGColorSpaceRelease(colorSpace);
     return pixelBuffer;
     }
-    
+   */
     
     
     
