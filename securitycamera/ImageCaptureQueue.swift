@@ -9,7 +9,7 @@
 import Foundation
 
 private let concurrentImageSnapQueue = dispatch_queue_create(
-    "com.marshallbrekka.SecurityCamera.ImageSnap", DISPATCH_QUEUE_CONCURRENT)
+    "com.marshallbrekka.SecurityCamera.ImageCaptureQueue", DISPATCH_QUEUE_CONCURRENT)
 
 class ImageCaptureQueue {
     var timer: dispatch_source_t! = nil

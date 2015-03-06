@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>38A511DD-6130-42C7-8FAA-BE5250C0745A</string>
+	<string>8013DB4A-ED19-4086-814F-2BFEC957B43C</string>
 	<key>IDESourceControlProjectName</key>
 	<string>securitycamera</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -34,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>2D27FD36DB6C99079F4F945F5A7222866FAE7D78</string>
 			<key>IDESourceControlWCCName</key>
-			<string>securitycamera</string>
+			<string>SecurityCamera</string>
 		</dict>
 	</array>
 </dict>

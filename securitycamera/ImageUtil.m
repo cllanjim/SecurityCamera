@@ -15,44 +15,6 @@
     return [image CGImageForProposedRect: &pRect context: NULL hints:NULL];
 }
 
-+ (CVPixelBufferRef) imageToPixelBuffer:(NSImage *)image {
-        CVPixelBufferRef buffer = NULL;
-        CGImageRef img = [ImageUtil CGImageCreateWithNSImage:image];
-    
-        // config
-        size_t width = [image size].width;
-        size_t height = [image size].height;
-        size_t bitsPerComponent = CGImageGetBitsPerComponent(img);
-        CGColorSpaceRef cs = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
-        CGBitmapInfo bi = CGImageGetBitmapInfo(img);
-        NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], kCVPixelBufferCGImageCompatibilityKey, [NSNumber numberWithBool:YES], kCVPixelBufferCGBitmapContextCompatibilityKey, nil];
-        
-        // create pixel buffer
-        CVPixelBufferCreate(kCFAllocatorDefault, width, height, k32ARGBPixelFormat, (__bridge CFDictionaryRef)d, &buffer);
-        CVPixelBufferLockBaseAddress(buffer, 0);
-        void *rasterData = CVPixelBufferGetBaseAddress(buffer);
-        size_t bytesPerRow = CVPixelBufferGetBytesPerRow(buffer);
-        
-        // context to draw in, set to pixel buffer's address
-        CGContextRef ctxt = CGBitmapContextCreate(rasterData, width, height, bitsPerComponent, bytesPerRow, cs, bi);
-        if(ctxt == NULL){
-            NSLog(@"could not create context");
-            return NULL;
-        }
-        
-        // draw
-        NSGraphicsContext *nsctxt = [NSGraphicsContext graphicsContextWithGraphicsPort:ctxt flipped:NO];
-        [NSGraphicsContext saveGraphicsState];
-        [NSGraphicsContext setCurrentContext:nsctxt];
-        [image drawAtPoint:NSMakePoint(0.0, 0.0) fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0];
-        [NSGraphicsContext restoreGraphicsState];
-        
-        CVPixelBufferUnlockBaseAddress(buffer, 0);
-        CFRelease(ctxt);
-        
-        return buffer;
-    }
-
 + (CVPixelBufferRef) pixelBufferFromNSImage: (NSImage *) nsimage {
     CGImageRef image = [ImageUtil CGImageCreateWithNSImage:nsimage];
     NSSize size = nsimage.size;

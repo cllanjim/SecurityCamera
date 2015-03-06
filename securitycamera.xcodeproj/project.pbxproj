@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		3D67B2851A956B42004FD4B2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D67B2811A9566F1004FD4B2 /* main.swift */; };
 		3D67B2891AA12B1C004FD4B2 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D67B2881AA12B1C004FD4B2 /* ImageUtil.m */; };
+		AB369F1F1AA8CF22002701E1 /* MovieConversionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB369F1E1AA8CF22002701E1 /* MovieConversionQueue.swift */; };
+		AB6C0DB71AA15DDF002CA350 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6C0DB61AA15DDF002CA350 /* FileManager.swift */; };
+		AB6C0DB91AA3D827002CA350 /* UrlHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6C0DB81AA3D827002CA350 /* UrlHelper.swift */; };
+		AB6C0DBB1AA634F5002CA350 /* MediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6C0DBA1AA634F5002CA350 /* MediaManager.swift */; };
 		ABB1EC811A95AB6000F54C0D /* ImageCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB1EC801A95AB6000F54C0D /* ImageCapture.swift */; };
 		ABB1EC831A99436500F54C0D /* ImageCaptureQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB1EC821A99436500F54C0D /* ImageCaptureQueue.swift */; };
 		ABB1EC851A994C3600F54C0D /* SystemEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB1EC841A994C3600F54C0D /* SystemEvents.swift */; };
@@ -33,6 +37,10 @@
 		3D67B2871AA12B1C004FD4B2 /* securitycamera-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "securitycamera-Bridging-Header.h"; sourceTree = "<group>"; };
 		3D67B2881AA12B1C004FD4B2 /* ImageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUtil.m; sourceTree = "<group>"; };
 		3D67B28A1AA130CE004FD4B2 /* ImageUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageUtil.h; sourceTree = "<group>"; };
+		AB369F1E1AA8CF22002701E1 /* MovieConversionQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieConversionQueue.swift; sourceTree = "<group>"; };
+		AB6C0DB61AA15DDF002CA350 /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		AB6C0DB81AA3D827002CA350 /* UrlHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlHelper.swift; sourceTree = "<group>"; };
+		AB6C0DBA1AA634F5002CA350 /* MediaManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaManager.swift; sourceTree = "<group>"; };
 		ABB1EC7F1A95A55B00F54C0D /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
 		ABB1EC801A95AB6000F54C0D /* ImageCapture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCapture.swift; sourceTree = "<group>"; };
 		ABB1EC821A99436500F54C0D /* ImageCaptureQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCaptureQueue.swift; sourceTree = "<group>"; };
@@ -79,6 +87,10 @@
 				3D67B2881AA12B1C004FD4B2 /* ImageUtil.m */,
 				3D67B2871AA12B1C004FD4B2 /* securitycamera-Bridging-Header.h */,
 				3D67B28A1AA130CE004FD4B2 /* ImageUtil.h */,
+				AB6C0DB61AA15DDF002CA350 /* FileManager.swift */,
+				AB6C0DB81AA3D827002CA350 /* UrlHelper.swift */,
+				AB6C0DBA1AA634F5002CA350 /* MediaManager.swift */,
+				AB369F1E1AA8CF22002701E1 /* MovieConversionQueue.swift */,
 			);
 			path = securitycamera;
 			sourceTree = "<group>";
@@ -139,9 +151,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB6C0DB91AA3D827002CA350 /* UrlHelper.swift in Sources */,
 				ABB1EC811A95AB6000F54C0D /* ImageCapture.swift in Sources */,
 				3D67B2891AA12B1C004FD4B2 /* ImageUtil.m in Sources */,
 				ABB1EC831A99436500F54C0D /* ImageCaptureQueue.swift in Sources */,
+				AB6C0DBB1AA634F5002CA350 /* MediaManager.swift in Sources */,
+				AB6C0DB71AA15DDF002CA350 /* FileManager.swift in Sources */,
+				AB369F1F1AA8CF22002701E1 /* MovieConversionQueue.swift in Sources */,
 				3D67B2851A956B42004FD4B2 /* main.swift in Sources */,
 				ABB1EC851A994C3600F54C0D /* SystemEvents.swift in Sources */,
 				ABB1EC871A99938900F54C0D /* Movie.swift in Sources */,

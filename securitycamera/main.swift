@@ -8,43 +8,21 @@
 
 import Foundation
 
+var interval = 3.0
+var daysToSave = UInt(18)
+var dir:NSURL! = NSURL(
+    fileURLWithPath: "/Users/Marshall/Documents/securitycamera/", isDirectory: true)
 
-var interval = 1.0
-//image.writeToFile(String("/Users/marshallbrekka/testimage" + String(x) + ".jpg"), atomically: false)
+var media = MediaManager(baseDirectory: dir, historyLength: daysToSave)
+var captureQueue = ImageCaptureQueue(interval:interval, media.saveImage);
+var screenEvents = SystemEvents(
+    captureQueue.startCapture,
+    captureQueue.stopCapture)
 
-var movieCount = 0;
-
-var movie:Movie! = nil
-
-func saveImage(image:NSData) {
-    if (movie == nil) {
-        var img = NSImage(data: image)
-        movie = Movie(filePath:NSURL(fileURLWithPath:"/Users/marshallbrekka/testmovie ")!, size: img!.size)
-    }
-    movie.addImage(image)
-
-    //image.writeToFile(String("/Users/Marshall/pictures_" + String(pic) + ".jpg"), atomically: false)
-    println("got image to save")
+var movieQueue = MovieConversionQueue(){
+    media.convertImagesToMovies()
+    media.deleteOldMovies()
 }
-
-var captureQueue = ImageCaptureQueue(interval:interval, saveImage);
-
-func start() {
-    captureQueue.startCapture()
-}
-
-func stop() {
-    movie.finish()
-    captureQueue.stopCapture()
-}
-
-
-//var x = SystemEvents(start, stop)
-start()
-sleep(20)
-stop()
-
 
 
 CFRunLoopRun()
-

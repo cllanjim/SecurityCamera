@@ -11,12 +11,10 @@
 
 
 @interface ImageUtil : NSObject  {
-    CVImageBufferRef                    imageToPixelBuffer;
     CGImageRef                          CGImageCreateWithNSImage;
     CVPixelBufferRef                    pixelBufferFromNSImage;
 }
 
-+ (CVPixelBufferRef) imageToPixelBuffer:(NSImage *)image;
 + (CGImageRef) CGImageCreateWithNSImage:(NSImage *)image;
 + (CVPixelBufferRef) pixelBufferFromNSImage: (NSImage *) nsimage;
 @end
