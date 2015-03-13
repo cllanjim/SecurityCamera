@@ -36,7 +36,8 @@ class MediaManager {
     
     func deleteOldMovies() {
         var cutoff = UrlHelper.dateToStartOfDay(NSDate())
-        var days:NSTimeInterval = 60 * 60 * 24 * Double(self.historyLength)
+        // multiply by -1 to subtract the days
+        var days:NSTimeInterval = -1 * 60 * 60 * 24 * Double(self.historyLength)
         cutoff = cutoff.dateByAddingTimeInterval(days)
         var oldUrls = url.urlsBeforeDate(fs.getMovieUrls(), date: cutoff)
         fs.deleteMovieUrls(oldUrls)
